@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet"/>
+    <title>ログイン</title>
+</head>
+<body>
+<div class="container">
+    <p style="text-align: center;">オリジナルログインフォームです</p>
+    <form class="form-signin" th:action="@{/login}" method="post">
+        <div th:if="${showErrorMsg}" class="alert alert-danger" role="alert">
+            <span>ユーザーIDまたはパスワードが違っています。</span>
+        </div>
+
+        <p>
+            <input type="text" id="username" name="username" class="form-control" placeholder="ユーザID" required
+                   autofocus>
+        </p>
+        <p>
+            <input type="password" id="password" name="password" class="form-control" placeholder="パスワード" required>
+        </p>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">ログイン</button>
+    </form>
+    <form class="form-signin" th:action="@{/signup}" method="GET">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登録</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link href="https://getbootstrap.com/docs/4.0/examples/signin/signin.css" rel="stylesheet"/>
+    <title>作成</title>
+    <title>登録</title>
+</head>
+<body>
+
+<div class="container">
+    <h2 style="text-align: center;">アカウント登録</h2>
+    <form class="form-signin" th:action="@{signup}" th:object="${signupForm}" method="POST">
+        <p>
+            <input class="form-control" type="text" placeholder="ユーザID" th:field="*{name}" required
+                   autofocus/>
+        </p>
+        <p>
+            <input class="form-control" type="text" placeholder="メールアドレス" th:field="*{email}" required/>
+        </p>
+        <p>
+            <input class="form-control" type="text" placeholder="パスワード" th:field="*{password}" required/>
+        <p>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">登録</button>
+    </form>
+</div>
+</body>
+</html>

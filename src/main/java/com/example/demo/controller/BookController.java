@@ -2,7 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.data.Entity.Book;
 import com.example.demo.data.Repository.BookRepository;
+import com.example.demo.service.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,26 +24,28 @@ public class BookController {
     }
 
     @GetMapping("/books")
-    public String books(Model model) {
-        model.addAttribute("books", bookRepository.findAll());
+    public String books(@AuthenticationPrincipal MyUserDetails myUserDetails, Model model) {
+        model.addAttribute("books", bookRepository.findByUserId(myUserDetails.getUser().getId()));
         return "books";
     }
 
 
     @PostMapping("/bookNew")
-    public String add(@RequestParam String title, @RequestParam String status, @RequestParam String site, Model model) {
+    public String add(@RequestParam String title, @RequestParam String status, @RequestParam String site, @AuthenticationPrincipal MyUserDetails myUserDetails, Model model) {
         Book book = new Book();
         book.setTitle(title);
         book.setDone(status);
+        book.setSite(site);
+        book.setUserId(myUserDetails.getUser().getId());
         bookRepository.save(book);
-        model.addAttribute("books", bookRepository.findAll());
+        model.addAttribute("books", bookRepository.findByUserId(myUserDetails.getUser().getId()));
         return "redirect:/books";
     }
 
     @PostMapping("/bookDelete/{id}")
-    public String delete(@PathVariable long id, Model model) {
+    public String delete(@PathVariable long id, @AuthenticationPrincipal MyUserDetails myUserDetails, Model model) {
         bookRepository.deleteById(id);
-        model.addAttribute("books", bookRepository.findAll());
+        model.addAttribute("books", bookRepository.findByUserId(myUserDetails.getUser().getId()));
         return "redirect:/books";
     }
 

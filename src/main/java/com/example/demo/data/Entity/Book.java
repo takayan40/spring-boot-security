@@ -20,11 +20,13 @@ public class Book {
     private String title;
     private String done;
     private String site;
+    private Long userId;
 
-    public Book(String title, String done, String site) {
+    public Book(String title, String done, String site, Long userId) {
         super();
         this.title = title;
         this.done = done;
         this.site = site;
+        this.userId = userId;
     }
 }
